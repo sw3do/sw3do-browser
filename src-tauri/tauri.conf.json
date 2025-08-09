@@ -2,15 +2,14 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "sw3do-browser",
   "version": "0.1.0",
-  "identifier": "com.sw3do-browser.app",
+  "identifier": "com.sw3do.sw3do-browser",
   "build": {
-    "beforeDevCommand": "dotnet watch run --project src/sw3do-browser.csproj",
+    "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "dotnet publish -c release src/sw3do-browser.csproj -o dist",
-    "frontendDist": "../dist/wwwroot"
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
   },
   "app": {
-    "withGlobalTauri": true,
     "windows": [
       {
         "title": "sw3do-browser",
