@@ -7,20 +7,48 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:build:debug": "tauri build --debug",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "install:deps": "bun install && cd src-tauri && cargo fetch"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-store": "^2",
+    "@tauri-apps/plugin-fs": "^2",
+    "@tauri-apps/plugin-http": "^2",
+    "@tauri-apps/plugin-shell": "^2",
     "tailwindcss": "^4.1.11",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-router": "^4.2.5",
+    "pinia": "^2.1.7",
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
+    "fuse.js": "^7.0.0",
+    "date-fns": "^3.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "typescript": "~5.6.2",
     "vite": "^6.0.3",
     "vue-tsc": "^2.1.10",
-    "@tauri-apps/cli": "^2"
+    "@tauri-apps/cli": "^2",
+    "vitest": "^1.0.4",
+    "@vue/test-utils": "^2.4.3",
+    "jsdom": "^23.0.1",
+    "@types/node": "^20.10.5",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "prettier": "^3.1.1"
   }
 }

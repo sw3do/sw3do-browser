@@ -13,13 +13,19 @@
     "windows": [
       {
         "title": "sw3do-browser",
-        "width": 800,
-        "height": 600
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "maximizable": true,
+        "minimizable": true,
+        "closable": true
       }
     ],
     "security": {
-      "csp": null
-    }
+      "csp": null,
+      "dangerousDisableAssetCspModification": true
+    },
+    "withGlobalTauri": true
   },
   "bundle": {
     "active": true,
