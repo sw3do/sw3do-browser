@@ -20,10 +20,10 @@
                 v-if="tab.favicon"
                 :src="tab.favicon"
                 :alt="tab.title"
-                class="w-4 h-4 mr-3 flex-shrink-0 rounded-sm"
+                class="w-4 h-4 mr-3 shrink-0 rounded-sm"
                 @error="handleFaviconError"
               >
-              <GlobeAltIcon v-else class="w-4 h-4 mr-3 flex-shrink-0 text-slate-400 dark:text-slate-500" />
+              <GlobeAltIcon v-else class="w-4 h-4 mr-3 shrink-0 text-slate-400 dark:text-slate-500" />
               
               <span class="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {{ tab.title || 'New Tab' }}
@@ -32,15 +32,15 @@
               <div class="flex items-center ml-3 space-x-2">
                 <SpeakerXMarkIcon
                   v-if="tab.is_muted"
-                  class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 flex-shrink-0"
+                  class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0"
                 />
                 <div
                   v-if="tab.is_loading"
-                  class="w-3.5 h-3.5 border-2 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin flex-shrink-0"
+                  class="w-3.5 h-3.5 border-2 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin shrink-0"
                 ></div>
                 <div
                   v-if="tab.is_pinned"
-                  class="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full flex-shrink-0"
+                  class="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full shrink-0"
                 ></div>
               </div>
             </div>
@@ -58,7 +58,7 @@
           
           <div
             v-if="tab.id === activeTabId"
-            class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-t-sm"
+            class="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-t-sm"
           ></div>
         </div>
       </div>

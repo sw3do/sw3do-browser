@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
+  <div class="h-screen flex flex-col bg-linear-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
     <BrowserToolbar />
     <div class="flex-1 flex shadow-inner">
       <BrowserSidebar v-if="showSidebar" class="border-r border-slate-200/50 dark:border-slate-700/50" />

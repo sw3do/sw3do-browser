@@ -79,7 +79,7 @@
           @mousedown="selectSuggestion(suggestion)"
           class="px-5 py-3 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 cursor-pointer flex items-center space-x-4 transition-all duration-200 first:rounded-t-2xl last:rounded-b-2xl hover:scale-[1.02] active:scale-[0.98]"
         >
-          <div class="flex-shrink-0">
+          <div class="shrink-0">
             <MagnifyingGlassIcon v-if="suggestion.type === 'search'" class="w-5 h-5 text-slate-400 dark:text-slate-500" />
             <ClockIcon v-else-if="suggestion.type === 'history'" class="w-5 h-5 text-blue-500 dark:text-blue-400" />
             <StarIcon v-else-if="suggestion.type === 'bookmark'" class="w-5 h-5 text-amber-500 dark:text-amber-400" />
@@ -180,6 +180,7 @@ import { useRouter } from 'vue-router'
 import { useBrowserStore } from '../stores/browser'
 import { useBookmarksStore } from '../stores/bookmarks'
 import { useHistoryStore } from '../stores/history'
+import { useSettingsStore } from '../stores/settings'
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -198,6 +199,7 @@ const router = useRouter()
 const browserStore = useBrowserStore()
 const bookmarksStore = useBookmarksStore()
 const historyStore = useHistoryStore()
+const settingsStore = useSettingsStore()
 
 const urlInput = ref('')
 const showSuggestions = ref(false)
@@ -222,6 +224,14 @@ watch(urlInput, async (newValue) => {
   }
 })
 
+onMounted(async () => {
+  try {
+    await settingsStore.loadSettings()
+  } catch (error) {
+    console.error('Failed to load settings:', error)
+  }
+})
+
 async function updateSuggestions(query: string) {
   if (!query.trim()) {
     suggestions.value = []
@@ -234,8 +244,18 @@ async function updateSuggestions(query: string) {
       bookmarksStore.searchBookmarks(query, 5)
     ])
     
+    let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`
+    try {
+      const customSearchUrl = await settingsStore.getSearchUrl(query)
+      if (customSearchUrl) {
+        searchUrl = customSearchUrl
+      }
+    } catch (error) {
+      console.error('Failed to get search URL for suggestions:', error)
+    }
+    
     suggestions.value = [
-      { type: 'search', title: `Search for "${query}"`, url: `https://www.google.com/search?q=${encodeURIComponent(query)}` },
+      { type: 'search', title: `Search for "${query}"`, url: searchUrl },
       ...historyResults.map((h: any) => ({ type: 'history', title: h.title, url: h.url })),
       ...bookmarkResults.map((b: any) => ({ type: 'bookmark', title: b.title, url: b.url }))
     ]
@@ -267,7 +287,13 @@ async function navigateToUrl() {
     if (url.includes('.') && !url.includes(' ')) {
       url = `https://${url}`
     } else {
-      url = `https://www.google.com/search?q=${encodeURIComponent(url)}`
+      try {
+        const searchUrl = await settingsStore.getSearchUrl(url)
+        url = searchUrl || `https://www.google.com/search?q=${encodeURIComponent(url)}`
+      } catch (error) {
+        console.error('Failed to get search URL:', error)
+        url = `https://www.google.com/search?q=${encodeURIComponent(url)}`
+      }
     }
   }
   

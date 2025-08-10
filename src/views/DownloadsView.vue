@@ -65,7 +65,7 @@
                   :key="download.id"
                   class="flex items-center p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
                 >
-                  <div class="flex-shrink-0">
+                  <div class="shrink-0">
                     <div class="h-10 w-10 rounded-lg flex items-center justify-center" :class="getFileTypeColor(download.type)">
                       <component :is="getFileIcon(download.type)" class="h-6 w-6 text-white" />
                     </div>

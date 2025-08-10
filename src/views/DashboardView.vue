@@ -9,7 +9,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-lg shadow p-6">
           <div class="flex items-center">
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
               <ShieldCheckIcon class="h-8 w-8 text-green-500" />
             </div>
             <div class="ml-4">
@@ -22,7 +22,7 @@
         
         <div class="bg-white rounded-lg shadow p-6">
           <div class="flex items-center">
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
               <EyeSlashIcon class="h-8 w-8 text-blue-500" />
             </div>
             <div class="ml-4">
@@ -35,7 +35,7 @@
         
         <div class="bg-white rounded-lg shadow p-6">
           <div class="flex items-center">
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
               <LockClosedIcon class="h-8 w-8 text-purple-500" />
             </div>
             <div class="ml-4">

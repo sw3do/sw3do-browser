@@ -68,7 +68,7 @@
                       :key="item.id"
                       class="flex items-center p-3 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow group"
                     >
-                      <div class="flex-shrink-0">
+                      <div class="shrink-0">
                         <img :src="item.favicon" :alt="item.title" class="h-6 w-6 rounded" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjOTQ5NEE0Ii8+Cjwvc3ZnPgo='">
                       </div>
                       <div class="ml-4 flex-1 min-w-0">

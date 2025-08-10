@@ -25,7 +25,7 @@
           <div class="mb-6">
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <div class="flex items-center">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                   <InformationCircleIcon class="h-5 w-5 text-blue-400" />
                 </div>
                 <div class="ml-3">

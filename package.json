@@ -19,21 +19,21 @@
     "install:deps": "bun install && cd src-tauri && cargo fetch"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2",
-    "@tauri-apps/plugin-store": "^2",
-    "@tauri-apps/plugin-fs": "^2",
-    "@tauri-apps/plugin-http": "^2",
-    "@tauri-apps/plugin-shell": "^2",
-    "tailwindcss": "^4.1.11",
-    "vue": "^3.5.13",
-    "vue-router": "^4.2.5",
-    "pinia": "^2.1.7",
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
+    "@tailwindcss/vite": "^4.1.11",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-fs": "^2",
+    "@tauri-apps/plugin-http": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-shell": "^2",
+    "@tauri-apps/plugin-store": "^2",
+    "date-fns": "^3.0.6",
     "fuse.js": "^7.0.0",
-    "date-fns": "^3.0.6"
+    "pinia": "^2.1.7",
+    "tailwindcss": "^4.1.11",
+    "vue": "^3.5.13",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

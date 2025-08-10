@@ -61,7 +61,7 @@
                 >
                   <div class="flex items-start justify-between">
                     <div class="flex items-center">
-                      <div class="flex-shrink-0">
+                      <div class="shrink-0">
                         <div class="h-12 w-12 rounded-lg flex items-center justify-center" :class="plugin.iconColor">
                           <component :is="plugin.icon" class="h-6 w-6 text-white" />
                         </div>

@@ -1,14 +1,14 @@
 <template>
   <div class="w-64 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col shadow-xl">
     <div class="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
-      <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Browser</h2>
+      <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Browser</h2>
     </div>
     
     <nav class="flex-1 p-6 space-y-3">
       <router-link
         to="/"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <GlobeAltIcon class="w-5 h-5 mr-3" />
         Browser
@@ -17,7 +17,7 @@
       <router-link
         to="/bookmarks"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/bookmarks' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/bookmarks' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <BookmarkIcon class="w-5 h-5 mr-3" />
         Bookmarks
@@ -29,7 +29,7 @@
       <router-link
         to="/history"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/history' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/history' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <ClockIcon class="w-5 h-5 mr-3" />
         History
@@ -38,7 +38,7 @@
       <router-link
         to="/downloads"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/downloads' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/downloads' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <ArrowDownTrayIcon class="w-5 h-5 mr-3" />
         Downloads
@@ -50,7 +50,7 @@
       <router-link
         to="/dashboard"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/dashboard' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/dashboard' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <ChartBarIcon class="w-5 h-5 mr-3" />
         Dashboard
@@ -59,7 +59,7 @@
       <router-link
         to="/plugins"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/plugins' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/plugins' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <PuzzlePieceIcon class="w-5 h-5 mr-3" />
         Plugins
@@ -71,7 +71,7 @@
       <router-link
         to="/sessions"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/sessions' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/sessions' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <RectangleStackIcon class="w-5 h-5 mr-3" />
         Sessions
@@ -80,7 +80,7 @@
       <router-link
         to="/settings"
         class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 transform hover:scale-105"
-        :class="$route.path === '/settings' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
+        :class="$route.path === '/settings' ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25' : 'text-slate-700 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:bg-slate-700/50 hover:shadow-md'"
       >
         <CogIcon class="w-5 h-5 mr-3" />
         Settings
@@ -88,7 +88,7 @@
     </nav>
     
     <div class="p-6 border-t border-slate-200/50 dark:border-slate-700/50">
-      <div class="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-4 rounded-xl border border-emerald-200/50 dark:border-emerald-700/50">
+      <div class="bg-linear-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-4 rounded-xl border border-emerald-200/50 dark:border-emerald-700/50">
         <div class="flex items-center justify-between text-sm text-slate-700 dark:text-slate-300 mb-3">
           <span class="font-semibold flex items-center">
             <div class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></div>
