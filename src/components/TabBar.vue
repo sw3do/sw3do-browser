@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50">
+  <div class="bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50 relative z-[90]">
     <div class="flex items-center">
       <div class="flex-1 flex items-center overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
         <div
@@ -72,9 +72,9 @@
           <PlusIcon class="w-4 h-4 text-slate-600 dark:text-slate-300" />
         </button>
         
-        <div class="relative">
+        <div class="relative" data-tab-menu-container>
           <button
-            @click="showTabMenu = !showTabMenu"
+            @click.stop="showTabMenu = !showTabMenu"
             class="p-2.5 rounded-xl hover:bg-slate-200/80 dark:hover:bg-slate-600/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
             title="Tab Options"
           >
@@ -83,38 +83,38 @@
           
           <div
             v-if="showTabMenu"
-            class="absolute right-0 top-full mt-2 w-52 bg-white/95 dark:bg-slate-700/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/60 dark:border-slate-600/60 z-50"
+            class="absolute right-0 top-full mt-2 w-52 bg-white/95 dark:bg-slate-700/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/60 dark:border-slate-600/60 z-[9999]"
           >
             <div class="py-2">
               <button
-                @click="createNewTab(); showTabMenu = false"
+                @click.stop="createNewTab(); showTabMenu = false"
                 class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-600/50 transition-all duration-200 first:rounded-t-2xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 New Tab
               </button>
               <button
-                @click="createNewPrivateTab(); showTabMenu = false"
+                @click.stop="createNewPrivateTab(); showTabMenu = false"
                 class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-600/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
                 New Private Tab
               </button>
               <hr class="my-2 border-slate-200/60 dark:border-slate-600/60">
               <button
-                @click="duplicateActiveTab(); showTabMenu = false"
+                @click.stop="duplicateActiveTab(); showTabMenu = false"
                 class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-600/50 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 :disabled="!activeTab"
               >
                 Duplicate Tab
               </button>
               <button
-                @click="pinActiveTab(); showTabMenu = false"
+                @click.stop="pinActiveTab(); showTabMenu = false"
                 class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-600/50 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 :disabled="!activeTab"
               >
                 {{ activeTab?.is_pinned ? 'Unpin' : 'Pin' }} Tab
               </button>
               <button
-                @click="muteActiveTab(); showTabMenu = false"
+                @click.stop="muteActiveTab(); showTabMenu = false"
                 class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-600/50 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 :disabled="!activeTab"
               >
@@ -122,14 +122,14 @@
               </button>
               <hr class="my-1 border-gray-200 dark:border-gray-600">
               <button
-                @click="closeOtherTabs(); showTabMenu = false"
+                @click.stop="closeOtherTabs(); showTabMenu = false"
                 class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                 :disabled="tabs.length <= 1"
               >
                 Close Other Tabs
               </button>
               <button
-                @click="closeTabsToRight(); showTabMenu = false"
+                @click.stop="closeTabsToRight(); showTabMenu = false"
                 class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
                 :disabled="!canCloseTabsToRight"
               >
@@ -197,6 +197,7 @@ async function createNewTab() {
       windowId = await browserStore.createWindow()
     }
     await browserStore.createTab(windowId, 'https://www.google.com')
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to create new tab:', error)
   }
@@ -206,6 +207,7 @@ async function createNewPrivateTab() {
   try {
     const windowId = await browserStore.createWindow(true)
     await browserStore.createTab(windowId, 'https://www.google.com', true)
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to create new private tab:', error)
   }
@@ -216,6 +218,7 @@ async function duplicateActiveTab() {
   
   try {
     await browserStore.duplicateTab(activeTab.value.id)
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to duplicate tab:', error)
   }
@@ -230,6 +233,7 @@ async function pinActiveTab() {
     } else {
       await browserStore.pinTab(activeTab.value.id)
     }
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to pin/unpin tab:', error)
   }
@@ -244,6 +248,7 @@ async function muteActiveTab() {
     } else {
       await browserStore.muteTab(activeTab.value.id)
     }
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to mute/unmute tab:', error)
   }
@@ -257,6 +262,7 @@ async function closeOtherTabs() {
     for (const tab of otherTabs) {
       await browserStore.closeTab(tab.id)
     }
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to close other tabs:', error)
   }
@@ -272,6 +278,7 @@ async function closeTabsToRight() {
     for (const tab of tabsToClose) {
       await browserStore.closeTab(tab.id)
     }
+    showTabMenu.value = false
   } catch (error) {
     console.error('Failed to close tabs to right:', error)
   }
@@ -311,7 +318,9 @@ function handleKeydown(event: KeyboardEvent) {
 
 function handleClickOutside(event: Event) {
   const target = event.target as HTMLElement
-  if (!target.closest('.relative')) {
+  const tabMenuContainer = target.closest('[data-tab-menu-container]')
+  
+  if (!tabMenuContainer) {
     showTabMenu.value = false
   }
 }

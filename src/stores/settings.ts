@@ -5,45 +5,81 @@ import { invoke } from '@tauri-apps/api/core'
 export interface GeneralSettings {
   homepage: string
   new_tab_page: string
-  search_engine: string
-  download_directory: string
-  ask_where_to_save: boolean
+  default_search_engine: string
   restore_tabs_on_startup: boolean
   show_bookmarks_bar: boolean
-  show_home_button: boolean
+  enable_notifications: boolean
+  language: string
 }
 
 export interface PrivacySettings {
-  clear_browsing_data_on_exit: boolean
-  send_do_not_track: boolean
+  block_ads: boolean
+  block_trackers: boolean
   block_third_party_cookies: boolean
-  enable_safe_browsing: boolean
-  use_secure_dns: boolean
-  dns_provider: string
+  enable_fingerprinting_protection: boolean
+  https_only_mode: boolean
+  clear_data_on_exit: boolean
+  send_do_not_track: boolean
+  enable_private_browsing_by_default: boolean
 }
 
 export interface AppearanceSettings {
-  theme: 'light' | 'dark' | 'system'
-  font_size: number
+  theme: string
   font_family: string
+  font_size: number
+  zoom_level: number
   show_tab_previews: boolean
   compact_mode: boolean
-  show_sidebar: boolean
+  custom_css?: string
+}
+
+export interface SearchSettings {
+  search_engines: Record<string, SearchEngine>
+  default_engine: string
+  enable_search_suggestions: boolean
+  show_search_in_address_bar: boolean
 }
 
 export interface SearchEngine {
-  id: string
   name: string
-  search_url: string
-  suggestion_url?: string
-  is_default: boolean
+  url: string
+  suggest_url?: string
+  icon?: string
+}
+
+export interface DownloadSettings {
+  download_directory: string
+  ask_where_to_save: boolean
+  auto_open_downloads: boolean
+  clear_downloads_on_exit: boolean
+}
+
+export interface AdvancedSettings {
+  enable_javascript: boolean
+  enable_images: boolean
+  enable_plugins: boolean
+  enable_webgl: boolean
+  enable_webrtc: boolean
+  user_agent?: string
+  proxy_settings: ProxySettings
+  developer_mode: boolean
+}
+
+export interface ProxySettings {
+  proxy_type: 'None' | 'Http' | 'Https' | 'Socks4' | 'Socks5'
+  host?: string
+  port?: number
+  username?: string
+  password?: string
 }
 
 export interface BrowserSettings {
   general: GeneralSettings
   privacy: PrivacySettings
   appearance: AppearanceSettings
-  search_engines: SearchEngine[]
+  search: SearchSettings
+  downloads: DownloadSettings
+  advanced: AdvancedSettings
 }
 
 export const useSettingsStore = defineStore('settings', () => {
@@ -108,17 +144,20 @@ export const useSettingsStore = defineStore('settings', () => {
     }
   }
 
-  async function addSearchEngine(searchEngine: Omit<SearchEngine, 'id' | 'is_default'>): Promise<string> {
+  async function addSearchEngine(id: string, searchEngine: Omit<SearchEngine, 'icon'>): Promise<void> {
     try {
       isLoading.value = true
-      const engineId = await invoke<string>('add_search_engine', {
-        name: searchEngine.name,
-        searchUrl: searchEngine.search_url,
-        suggestionUrl: searchEngine.suggestion_url
+      await invoke('add_search_engine', {
+        id,
+        engine: {
+          name: searchEngine.name,
+          url: searchEngine.url,
+          suggest_url: searchEngine.suggest_url,
+          icon: null
+        }
       })
       
       await loadSettings()
-      return engineId
     } catch (error) {
       console.error('Failed to add search engine:', error)
       throw error
@@ -210,8 +249,10 @@ export const useSettingsStore = defineStore('settings', () => {
   }
 
   function getDefaultSearchEngine(): SearchEngine | null {
-    if (!settings.value) return null
-    return settings.value.search_engines.find(engine => engine.is_default) || null
+    if (!settings.value?.search?.search_engines) return null
+    const engines = settings.value.search.search_engines
+    const defaultEngineId = settings.value.search.default_engine
+    return engines[defaultEngineId] || null
   }
 
   function applyTheme(): void {

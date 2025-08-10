@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 px-6 py-3 flex items-center space-x-4 shadow-sm">
+  <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 px-6 py-3 flex items-center space-x-4 shadow-sm relative z-[100]">
     <div class="flex items-center space-x-2">
       <button
         @click="goBack"
@@ -30,7 +30,7 @@
     </div>
     
     <div class="flex-1 relative">
-      <div class="relative">
+      <div class="relative" data-suggestion-container>
         <input
           v-model="urlInput"
           @keydown.enter="navigateToUrl"
@@ -71,12 +71,13 @@
       
       <div
         v-if="showSuggestions && suggestions.length > 0"
-        class="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-2xl z-50 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
+        class="absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-2xl z-[9999] max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
       >
         <div
           v-for="(suggestion, index) in suggestions"
           :key="index"
-          @mousedown="selectSuggestion(suggestion)"
+          @mousedown.prevent="selectSuggestion(suggestion)"
+          @click.stop="selectSuggestion(suggestion)"
           class="px-5 py-3 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 cursor-pointer flex items-center space-x-4 transition-all duration-200 first:rounded-t-2xl last:rounded-b-2xl hover:scale-[1.02] active:scale-[0.98]"
         >
           <div class="shrink-0">
@@ -109,9 +110,9 @@
         <ShieldCheckIcon class="w-5 h-5" />
       </button>
       
-      <div class="relative">
+      <div class="relative" data-menu-container>
         <button
-          @click="showMenu = !showMenu"
+          @click.stop="showMenu = !showMenu"
           class="p-2.5 rounded-xl hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
           title="Menu"
         >
@@ -120,49 +121,49 @@
         
         <div
           v-if="showMenu"
-          class="absolute right-0 top-full mt-2 w-56 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-2xl z-50"
+          class="absolute right-0 top-full mt-2 w-56 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-2xl shadow-2xl z-[9999]"
         >
           <div class="py-2">
             <button
-              @click="openNewTab"
+              @click.stop="openNewTab"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 first:rounded-t-2xl hover:scale-[1.02] active:scale-[0.98]"
             >
               New Tab
             </button>
             <button
-              @click="openNewWindow"
+              @click.stop="openNewWindow"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               New Window
             </button>
             <button
-              @click="openPrivateWindow"
+              @click.stop="openPrivateWindow"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               New Private Window
             </button>
             <hr class="my-2 border-slate-200/60 dark:border-slate-700/60" />
             <button
-              @click="openBookmarks"
+              @click.stop="openBookmarks"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               Bookmarks
             </button>
             <button
-              @click="openHistory"
+              @click.stop="openHistory"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               History
             </button>
             <button
-              @click="openDownloads"
+              @click.stop="openDownloads"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               Downloads
             </button>
             <hr class="my-2 border-slate-200/60 dark:border-slate-700/60" />
             <button
-              @click="openSettings"
+              @click.stop="openSettings"
               class="w-full text-left px-5 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-700/50 transition-all duration-200 last:rounded-b-2xl hover:scale-[1.02] active:scale-[0.98]"
             >
               Settings
@@ -239,9 +240,19 @@ async function updateSuggestions(query: string) {
   }
   
   try {
-    const [historyResults, bookmarkResults] = await Promise.all([
-      historyStore.searchHistory(query, 5),
-      bookmarksStore.searchBookmarks(query, 5)
+    const [searchSuggestions, historyResults, bookmarkResults] = await Promise.all([
+      settingsStore.getSuggestionUrl(query).then(async (suggestionUrl) => {
+        if (!suggestionUrl) return []
+        try {
+          const response = await fetch(suggestionUrl)
+          const data = await response.json()
+          return data[1]?.slice(0, 3) || []
+        } catch {
+          return []
+        }
+      }),
+      historyStore.searchHistory(query, 3),
+      bookmarksStore.searchBookmarks(query, 3)
     ])
     
     let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`
@@ -256,12 +267,13 @@ async function updateSuggestions(query: string) {
     
     suggestions.value = [
       { type: 'search', title: `Search for "${query}"`, url: searchUrl },
+      ...searchSuggestions.map((text: string) => ({ type: 'search', title: `Search for "${text}"`, url: `https://www.google.com/search?q=${encodeURIComponent(text)}` })),
       ...historyResults.map((h: any) => ({ type: 'history', title: h.title, url: h.url })),
       ...bookmarkResults.map((b: any) => ({ type: 'bookmark', title: b.title, url: b.url }))
-    ]
+    ].slice(0, 8)
   } catch (error) {
     console.error('Failed to get suggestions:', error)
-    suggestions.value = []
+    suggestions.value = [{ type: 'search', title: `Search for "${query}"`, url: `https://www.google.com/search?q=${encodeURIComponent(query)}` }]
   }
 }
 
@@ -273,8 +285,10 @@ function selectSuggestion(suggestion: any) {
 
 function hideSuggestions() {
   setTimeout(() => {
-    showSuggestions.value = false
-  }, 200)
+    if (!document.querySelector('[data-suggestion-container]:hover')) {
+      showSuggestions.value = false
+    }
+  }, 150)
 }
 
 async function navigateToUrl() {
@@ -284,7 +298,7 @@ async function navigateToUrl() {
   if (!url) return
   
   if (!url.includes('://')) {
-    if (url.includes('.') && !url.includes(' ')) {
+    if (url.includes('.') && !url.includes(' ') && !url.includes('?')) {
       url = `https://${url}`
     } else {
       try {
@@ -427,8 +441,15 @@ function openSettings() {
 
 function handleClickOutside(event: Event) {
   const target = event.target as Element
-  if (!target.closest('.relative')) {
+  const menuContainer = target.closest('[data-menu-container]')
+  const suggestionContainer = target.closest('[data-suggestion-container]')
+  
+  if (!menuContainer) {
     showMenu.value = false
+  }
+  
+  if (!suggestionContainer) {
+    showSuggestions.value = false
   }
 }
 
